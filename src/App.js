@@ -1,24 +1,24 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { BrowserRouter as Router, Route } from "react-router-dom";
+import DashboardPage from "./pages/DashboardPage";
+import ClubPage from "./pages/ClubPage";
+import MembersPage from "./pages/MembersPage";
+import AddClub from "./Components/AddClub";
+import AddMember from "./Components/AddMember";
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Router>
+        <Route exact path="/" component={DashboardPage} />
+        <Route exact path="/club" component={ClubPage} />
+        <Route exact path="/addclub" component={AddClub} />
+        <Route exact path={"/addclub/:id"} component={AddClub} />
+
+        <Route exact path="/members" component={MembersPage} />
+        <Route exact path="/addmember" component={AddMember} />
+        <Route exact path={"/addmember/:id"} component={AddMember} />
+      </Router>
     </div>
   );
 }
