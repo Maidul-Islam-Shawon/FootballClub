@@ -5,6 +5,7 @@ import ClubPage from "./pages/ClubPage";
 import MembersPage from "./pages/MembersPage";
 import AddClub from "./Components/AddClub";
 import AddMember from "./Components/AddMember";
+import ClubWithMembers from "./pages/ClubWithMembers";
 
 function App() {
   return (
@@ -18,6 +19,8 @@ function App() {
         <Route exact path="/members" component={MembersPage} />
         <Route exact path="/addmember" component={AddMember} />
         <Route exact path={"/addmember/:id"} component={AddMember} />
+
+        <Route exact path="/clubwithmembers" component={ClubWithMembers} />
       </Router>
     </div>
   );

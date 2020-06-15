@@ -54,11 +54,12 @@ export default function ClubTable(props) {
                 </Tooltip>
 
                 <Tooltip title="Delete">
-                  <IconButton aria-label="delete">
-                    <DeleteIcon
-                      style={{ color: "red" }}
-                      onClick={() => props.deleteClub(club.clubId)}
-                    />
+                  <IconButton
+                    aria-label="delete"
+                    style={{ color: "red" }}
+                    onClick={() => props.deleteClub(club.clubId)}
+                  >
+                    <DeleteIcon />
                   </IconButton>
                 </Tooltip>
               </TableCell>

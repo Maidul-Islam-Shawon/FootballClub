@@ -43,7 +43,7 @@ export default function ClubTable(props) {
               </TableCell>
               <TableCell align="right">{member.surname}</TableCell>
               <TableCell align="right">{member.emailAddress}</TableCell>
-              <TableCell align="right">{member.club.clubName}</TableCell>
+              <TableCell align="right">{member.clubName}</TableCell>
               <TableCell align="right">
                 <Tooltip title="Edit">
                   <Link to={`/addmember/${member.memberId}`}>
@@ -54,11 +54,12 @@ export default function ClubTable(props) {
                 </Tooltip>
 
                 <Tooltip title="Delete">
-                  <IconButton aria-label="delete">
-                    <DeleteIcon
-                      style={{ color: "red" }}
-                      onClick={() => props.deleteMember(member.memberId)}
-                    />
+                  <IconButton
+                    aria-label="delete"
+                    style={{ color: "red" }}
+                    onClick={() => props.deleteMember(member.memberId)}
+                  >
+                    <DeleteIcon />
                   </IconButton>
                 </Tooltip>
               </TableCell>

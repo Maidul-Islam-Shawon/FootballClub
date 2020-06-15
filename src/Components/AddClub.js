@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import ButtonMUI from "@material-ui/core/Button";
-import { Form, Button, Row, Col, InputGroup } from "react-bootstrap";
+import { Form, Button, Col } from "react-bootstrap";
 import Axios from "axios";
 import { AddedMessage, UpdateMessage } from "./TostifyMessage";
 
@@ -38,7 +38,7 @@ const AddClub = (props) => {
     setState({ ...state, [name]: value });
   };
 
-  //console.log(state);
+  console.log("validation:", validated);
 
   const handleSubmit = (event) => {
     try {
@@ -76,10 +76,12 @@ const AddClub = (props) => {
 
   function validationChecking(event) {
     const form = event.currentTarget;
-    if (form.checkValidity() === false) {
-      event.preventDefault();
-      event.stopPropagation();
-    }
+    console.log("val:", form);
+    // if (form.checkValidity() === false) {
+    //   event.preventDefault();
+    //   event.stopPropagation();
+    //   setValidated(false);
+    // }
     setValidated(true);
   }
 
@@ -107,7 +109,7 @@ const AddClub = (props) => {
       <br />
       <br />
 
-      <Form noValidate validated={validated} onSubmit={handleSubmit}>
+      <Form validated={validated} onSubmit={handleSubmit}>
         <Form.Row>
           <Form.Group as={Col} md="6" controlId="validationCustom01">
             <Form.Label>Club Name</Form.Label>
@@ -179,8 +181,9 @@ const AddClub = (props) => {
             onChange={handleCheck}
           />
         </Form.Group>
-        <Button type="submit">{ButtonName}</Button>
+        {ButtonName}
       </Form>
+      {error}
     </div>
   );
 };

@@ -22,6 +22,13 @@ const DashboardPage = () => {
           Members
         </Button>
       </Link>
+      <br />
+      <br />
+      <Link to="/clubwithmembers" style={{ textDecoration: "none" }}>
+        <Button variant="contained" color="default" size="large">
+          Club with Members
+        </Button>
+      </Link>
     </>
   );
 };

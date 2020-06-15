@@ -9,6 +9,7 @@ const AddMember = (props) => {
   const [validated, setValidated] = useState(false);
   const [error, setError] = useState("");
   const [checkbox, setCheckbox] = useState(false);
+  const [club, setClub] = useState([]);
   const [state, setState] = useState({
     forename: "",
     surname: "",
@@ -32,9 +33,21 @@ const AddMember = (props) => {
     }
   }, [MemberId]);
 
+  useEffect(() => {
+    Axios.get("https://localhost:44375/api/clubs").then((result) => {
+      setClub(result.data);
+    });
+  }, []);
+
+  //console.log("Club List", club);
+
   const handleChange = (event) => {
     let name = event.target.name;
     let value = event.target.value;
+
+    if (name === "clubId") {
+      value = parseInt(value);
+    }
     setState({ ...state, [name]: value });
   };
 
@@ -46,7 +59,7 @@ const AddMember = (props) => {
       validationChecking(event);
 
       if (checkbox) {
-        if (MemberId) {
+        if (MemberId && state.clubId !== null) {
           Axios.put(
             "https://localhost:44375/api/clubmembers/" + MemberId,
             state
@@ -54,7 +67,7 @@ const AddMember = (props) => {
             (result) => {
               setState(result.data);
               UpdateMessage();
-              props.history.push("/club");
+              props.history.push("/members");
             },
             (err) => {
               setError(err.message);
@@ -79,6 +92,7 @@ const AddMember = (props) => {
 
   function validationChecking(event) {
     const form = event.currentTarget;
+    console.log("what:", form);
     if (form.checkValidity() === false) {
       event.preventDefault();
       event.stopPropagation();
@@ -148,7 +162,7 @@ const AddMember = (props) => {
             <Form.Label>Email Address</Form.Label>
             <Form.Control
               required
-              type="text"
+              type="email"
               name="emailAddress"
               placeholder="Email Address"
               onChange={handleChange}
@@ -158,18 +172,29 @@ const AddMember = (props) => {
               Please provide a valid Email Address.
             </Form.Control.Feedback>
           </Form.Group>
-          <Form.Group as={Col} md="6" controlId="validationCustom04">
-            <Form.Label>Club Name</Form.Label>
+
+          <Form.Group as={Col} md="6" controlId="formGridState">
+            <Form.Label>Selec a Club</Form.Label>
             <Form.Control
-              required
-              type="text"
+              as="select"
               name="clubId"
-              placeholder="club Name"
+              defaultValue="Choose..."
               onChange={handleChange}
+              placeholder="Choose..."
+              required
               value={state.clubId || ""}
-            />
+            >
+              <option value="" hidden>
+                Choose here
+              </option>
+              {club.map((c) => (
+                <option key={c.clubId} value={c.clubId}>
+                  {c.clubName}
+                </option>
+              ))}
+            </Form.Control>
             <Form.Control.Feedback type="invalid">
-              Please select a Club.
+              Please Select a Club.
             </Form.Control.Feedback>
           </Form.Group>
         </Form.Row>
@@ -182,8 +207,9 @@ const AddMember = (props) => {
             onChange={handleCheck}
           />
         </Form.Group>
-        <Button type="submit">{ButtonName}</Button>
+        {ButtonName}
       </Form>
+      {error}
     </div>
   );
 };
