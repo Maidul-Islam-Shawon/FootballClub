@@ -45,18 +45,20 @@ const ClubWithMembers = () => {
     );
   }, []);
 
+  const [clubName, SetClubName] = useState("");
   const handleMembers = (id) => {
     // console.log(id);
     Axios.get("https://localhost:44375/api/clubs/" + id).then(
       (result) => {
         setMembersState(result.data.clubMembers);
+        SetClubName(result.data.clubName);
       },
       (err) => {
         setError(err);
       }
     );
   };
-  console.log("mebers:", membersState);
+  console.log("members:", membersState);
 
   let membersList;
 
@@ -105,7 +107,11 @@ const ClubWithMembers = () => {
                         onClick={() => handleMembers(club.clubId)}
                         key={club.clubId}
                       >
-                        <TableCell component="th" scope="row">
+                        <TableCell
+                          component="th"
+                          scope="row"
+                          className="mouseHover"
+                        >
                           {club.clubName}
                         </TableCell>
 
@@ -120,7 +126,7 @@ const ClubWithMembers = () => {
 
           <Grid item xs={8}>
             <Paper className={classes.paper}>
-              <h2>Members List</h2>
+              <h2>Club: {clubName}</h2>
 
               <TableContainer component={Paper}>
                 <Table className={classes.table} aria-label="simple table">
