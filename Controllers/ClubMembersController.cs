@@ -44,7 +44,18 @@ namespace FootballClub.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<ClubMembers>> GetClubMembers(int id)
         {
-            var clubMembers = await _context.ClubMembers.FindAsync(id);
+            var clubMembers =await _context.ClubMembers.Select(x =>
+                             new ClubMembers()
+                             {
+                                 MemberId = x.MemberId,
+                                 Forename = x.Forename,
+                                 Surname = x.Surname,
+                                 EmailAddress = x.EmailAddress,
+                                 ClubId = x.ClubId,
+                                 Club = x.Club
+                             }
+
+                         ).FirstOrDefaultAsync();
 
             if (clubMembers == null)
             {
