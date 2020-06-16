@@ -55,7 +55,7 @@ namespace FootballClub.Controllers
                                  Club = x.Club
                              }
 
-                         ).Where(x=>x.ClubId==id).FirstOrDefaultAsync();
+                         ).Where(x=>x.MemberId==id).FirstOrDefaultAsync();
 
             if (clubMembers == null)
             {

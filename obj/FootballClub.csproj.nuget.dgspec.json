@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "D:\\MVC\\Practice\\.netCore\\FootballClub Website + API\\FootballClub\\FootballClub.csproj": {}
+    "E:\\Practice\\ASP.NET Core MVC\\FootballClub\\FootballClub.csproj": {}
   },
   "projects": {
-    "D:\\MVC\\Practice\\.netCore\\FootballClub Website + API\\FootballClub\\FootballClub.csproj": {
+    "E:\\Practice\\ASP.NET Core MVC\\FootballClub\\FootballClub.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\MVC\\Practice\\.netCore\\FootballClub Website + API\\FootballClub\\FootballClub.csproj",
+        "projectUniqueName": "E:\\Practice\\ASP.NET Core MVC\\FootballClub\\FootballClub.csproj",
         "projectName": "FootballClub",
-        "projectPath": "D:\\MVC\\Practice\\.netCore\\FootballClub Website + API\\FootballClub\\FootballClub.csproj",
-        "packagesPath": "C:\\Users\\shawon\\.nuget\\packages\\",
-        "outputPath": "D:\\MVC\\Practice\\.netCore\\FootballClub Website + API\\FootballClub\\obj\\",
+        "projectPath": "E:\\Practice\\ASP.NET Core MVC\\FootballClub\\FootballClub.csproj",
+        "packagesPath": "C:\\Users\\Shawon\\.nuget\\packages\\",
+        "outputPath": "E:\\Practice\\ASP.NET Core MVC\\FootballClub\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\shawon\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Shawon\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
