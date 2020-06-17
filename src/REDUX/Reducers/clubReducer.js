@@ -3,6 +3,8 @@ import {
   GET_All_CLUBS_SUCCESS,
   GET_All_CLUBS_FAILURE,
   ADD_CLUB,
+  DELETE_CLUB,
+  UPDATE_CLUB,
 } from "../Actions/ActionTypes";
 
 const initialState = {
@@ -21,7 +23,16 @@ export default function clubReducer(state = initialState, action) {
       return { clubs: action.payload, loading: false, hasError: false };
 
     case ADD_CLUB:
+      return { ...state, clubs: state.clubs.concat(action.payload) };
+
+    case UPDATE_CLUB:
       return { ...state, clubs: action.payload };
+
+    case DELETE_CLUB:
+      return {
+        ...state,
+        clubs: state.clubs.filter((club) => club.clubId !== action.payload),
+      };
 
     case GET_All_CLUBS_FAILURE:
       return {

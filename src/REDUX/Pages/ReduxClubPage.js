@@ -2,8 +2,9 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@material-ui/core";
 import { connect } from "react-redux";
-import { fetchClubs } from "../Actions/ClubActions";
+import { fetchClubs, deleteNewClub } from "../Actions/ClubActions";
 import ReduxClubTable from "../Components/ReduxClubTable";
+import { DeleteMessage } from "../../Components/TostifyMessage";
 
 const ReduxClubPage = ({ dispatch, clubs, loading, hasError, errorResult }) => {
   //console.log(props);
@@ -14,10 +15,15 @@ const ReduxClubPage = ({ dispatch, clubs, loading, hasError, errorResult }) => {
 
   console.log("All Clubs", clubs);
 
+  const handleDelete = (id) => {
+    dispatch(deleteNewClub(id));
+    DeleteMessage();
+  };
+
   const renderClubs = () => {
     if (loading) return <div>Loading....</div>;
     if (hasError) return <div>Error: {errorResult}</div>;
-    return <ReduxClubTable clubs={clubs} />;
+    return <ReduxClubTable clubs={clubs} handleDelete={handleDelete} />;
   };
 
   return (

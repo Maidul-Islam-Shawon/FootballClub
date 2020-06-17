@@ -4,6 +4,8 @@ import {
   GET_All_CLUBS_SUCCESS,
   GET_All_CLUBS_FAILURE,
   ADD_CLUB,
+  DELETE_CLUB,
+  UPDATE_CLUB,
 } from "./ActionTypes";
 
 export const getAllClubs = () => ({
@@ -23,6 +25,16 @@ export const getAllClubsFailure = (error) => ({
 export const addClub = (club) => ({
   type: ADD_CLUB,
   payload: club,
+});
+
+export const deleteClub = (id) => ({
+  type: DELETE_CLUB,
+  payload: id,
+});
+
+export const updateClub = (id, club) => ({
+  type: UPDATE_CLUB,
+  payload: { id, club },
 });
 
 export function fetchClubs() {
@@ -45,6 +57,32 @@ export function addNewClub(club) {
       Axios.post("https://localhost:44375/api/clubs", club).then((result) => {
         dispatch(addClub(result.data));
       });
+    } catch (err) {
+      dispatch(getAllClubsFailure(err));
+    }
+  };
+}
+
+export function deleteNewClub(id) {
+  return function (dispatch) {
+    try {
+      Axios.delete("https://localhost:44375/api/clubs/" + id).then((result) => {
+        dispatch(deleteClub(id));
+      });
+    } catch (err) {
+      dispatch(getAllClubsFailure(err));
+    }
+  };
+}
+
+export function updateNewClub(id, club) {
+  return function (dispatch) {
+    try {
+      Axios.put("https://localhost:44375/api/clubs/" + id, club).then(
+        (result) => {
+          dispatch(updateClub(result.data));
+        }
+      );
     } catch (err) {
       dispatch(getAllClubsFailure(err));
     }

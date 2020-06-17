@@ -5,7 +5,7 @@ import { Form, Button, Col } from "react-bootstrap";
 import Axios from "axios";
 import { AddedMessage, UpdateMessage } from "../../Components/TostifyMessage";
 import { connect } from "react-redux";
-import { addNewClub } from "../Actions/ClubActions";
+import { addNewClub, updateNewClub } from "../Actions/ClubActions";
 
 const ReduxAddClub = (props) => {
   const [validated, setValidated] = useState(false);
@@ -49,16 +49,19 @@ const ReduxAddClub = (props) => {
 
       if (checkbox) {
         if (ClubId) {
-          Axios.put("https://localhost:44375/api/clubs/" + ClubId, state).then(
-            (result) => {
-              setState(result.data);
-              UpdateMessage();
-              props.history.push("/club");
-            },
-            (err) => {
-              setError(err.message);
-            }
-          );
+          props.dispatch(updateNewClub(ClubId, state));
+          props.history.push("/reduxclub");
+          UpdateMessage();
+          // Axios.put("https://localhost:44375/api/clubs/" + ClubId, state).then(
+          //   (result) => {
+          //     setState(result.data);
+          //     UpdateMessage();
+          //     props.history.push("/club");
+          //   },
+          //   (err) => {
+          //     setError(err.message);
+          //   }
+          // );
         } else {
           props.dispatch(addNewClub(state));
           AddedMessage();
@@ -97,7 +100,7 @@ const ReduxAddClub = (props) => {
       <hr />
       <h2 style={{ textAlign: "center" }}>Club Page</h2>
       <hr />
-      <Link to="/club" style={{ textDecoration: "none" }}>
+      <Link to="/reduxclub" style={{ textDecoration: "none" }}>
         <ButtonMUI variant="contained" color="default" size="small">
           Back
         </ButtonMUI>
@@ -184,8 +187,4 @@ const ReduxAddClub = (props) => {
   );
 };
 
-const mapStateTOProps = (state) => {
-  console.log(state);
-};
-
-export default connect(mapStateTOProps)(ReduxAddClub);
+export default connect()(ReduxAddClub);

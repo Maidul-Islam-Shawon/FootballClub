@@ -11,6 +11,7 @@ import TableRow from "@material-ui/core/TableRow";
 import { Tooltip, IconButton } from "@material-ui/core";
 import EditIcon from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/Delete";
+import { Link } from "react-router-dom";
 
 const useStyles = makeStyles({
   root: {
@@ -21,7 +22,7 @@ const useStyles = makeStyles({
   },
 });
 
-const ReduxClubTable = ({ clubs }) => {
+const ReduxClubTable = ({ clubs, handleDelete }) => {
   const classes = useStyles();
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
@@ -61,13 +62,19 @@ const ReduxClubTable = ({ clubs }) => {
                   <TableCell align="right">{club.postcode}</TableCell>
                   <TableCell align="right">
                     <Tooltip title="Edit">
-                      <IconButton aria-label="edit">
-                        <EditIcon style={{ color: "blue" }} />
-                      </IconButton>
+                      <Link to={`/reduxaddclub/${club.clubId}`}>
+                        <IconButton aria-label="edit">
+                          <EditIcon style={{ color: "blue" }} />
+                        </IconButton>
+                      </Link>
                     </Tooltip>
 
                     <Tooltip title="Delete">
-                      <IconButton aria-label="delete" style={{ color: "red" }}>
+                      <IconButton
+                        aria-label="delete"
+                        style={{ color: "red" }}
+                        onClick={() => handleDelete(club.clubId)}
+                      >
                         <DeleteIcon />
                       </IconButton>
                     </Tooltip>
