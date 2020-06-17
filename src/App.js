@@ -6,6 +6,7 @@ import MembersPage from "./pages/MembersPage";
 import AddClub from "./Components/AddClub";
 import AddMember from "./Components/AddMember";
 import ClubWithMembers from "./pages/ClubWithMembers";
+import ReduxClubPage from "./REDUX/Pages/ReduxClubPage";
 
 function App() {
   return (
@@ -21,6 +22,8 @@ function App() {
         <Route exact path={"/addmember/:id"} component={AddMember} />
 
         <Route exact path="/clubwithmembers" component={ClubWithMembers} />
+
+        <Route exact path="/reduxclub" component={ReduxClubPage} />
       </Router>
     </div>
   );

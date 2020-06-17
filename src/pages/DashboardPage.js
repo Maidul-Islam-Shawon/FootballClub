@@ -29,6 +29,14 @@ const DashboardPage = () => {
           Club with Members
         </Button>
       </Link>
+      <br />
+      <br />
+      <hr />
+      <Link to="/reduxclub" style={{ textDecoration: "none" }}>
+        <Button variant="contained" color="default" size="large">
+          Redux Club Page
+        </Button>
+      </Link>
     </>
   );
 };

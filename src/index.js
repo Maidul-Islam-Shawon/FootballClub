@@ -7,13 +7,25 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import Container from "react-bootstrap/Container";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
+import { createStore, applyMiddleware } from "redux";
+import { composeWithDevTools } from "redux-devtools-extension";
+import thunk from "redux-thunk";
+import { Provider } from "react-redux";
+import rootReducer from "./REDUX/Reducers/rootReducer";
+
+const store = createStore(
+  rootReducer,
+  composeWithDevTools(applyMiddleware(thunk))
+);
 
 ReactDOM.render(
   <React.StrictMode>
-    <Container>
-      <ToastContainer />
-      <App />
-    </Container>
+    <Provider store={store}>
+      <Container>
+        <ToastContainer />
+        <App />
+      </Container>
+    </Provider>
   </React.StrictMode>,
   document.getElementById("root")
 );
