@@ -3,9 +3,11 @@ import { Link } from "react-router-dom";
 import ButtonMUI from "@material-ui/core/Button";
 import { Form, Button, Col } from "react-bootstrap";
 import Axios from "axios";
-import { AddedMessage, UpdateMessage } from "./TostifyMessage";
+import { AddedMessage, UpdateMessage } from "../../Components/TostifyMessage";
+import { connect } from "react-redux";
+import { addNewClub } from "../Actions/ClubActions";
 
-const AddClub = (props) => {
+const ReduxAddClub = (props) => {
   const [validated, setValidated] = useState(false);
   const [error, setError] = useState("");
   const [checkbox, setCheckbox] = useState(false);
@@ -38,7 +40,7 @@ const AddClub = (props) => {
     setState({ ...state, [name]: value });
   };
 
-  console.log("validation:", validated);
+  console.log(props);
 
   const handleSubmit = (event) => {
     try {
@@ -57,17 +59,11 @@ const AddClub = (props) => {
               setError(err.message);
             }
           );
+        } else {
+          props.dispatch(addNewClub(state));
+          AddedMessage();
+          props.history.push("/reduxclub");
         }
-        Axios.post("https://localhost:44375/api/clubs", state).then(
-          (result) => {
-            setState(result.data);
-            AddedMessage();
-            props.history.push("/club");
-          },
-          (err) => {
-            setError(err.message);
-          }
-        );
       }
     } catch (ex) {
       setError(ex.message);
@@ -80,6 +76,7 @@ const AddClub = (props) => {
     if (form.checkValidity() === false) {
       event.preventDefault();
       event.stopPropagation();
+      setValidated(false);
     }
     setValidated(true);
   }
@@ -187,4 +184,8 @@ const AddClub = (props) => {
   );
 };
 
-export default AddClub;
+const mapStateTOProps = (state) => {
+  console.log(state);
+};
+
+export default connect(mapStateTOProps)(ReduxAddClub);

@@ -1,22 +1,23 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@material-ui/core";
 import { connect } from "react-redux";
 import { fetchClubs } from "../Actions/ClubActions";
-import Club from "../Components/Club";
+import ReduxClubTable from "../Components/ReduxClubTable";
 
 const ReduxClubPage = ({ dispatch, clubs, loading, hasError, errorResult }) => {
   //console.log(props);
+  //const [state, setState] = useState([]);
   useEffect(() => {
     dispatch(fetchClubs());
   }, [dispatch]);
 
-  //console.log(errorResult.message);
+  console.log("All Clubs", clubs);
 
   const renderClubs = () => {
     if (loading) return <div>Loading....</div>;
     if (hasError) return <div>Error: {errorResult}</div>;
-    return clubs.map((club) => <Club key={club.clubId} club={club} />);
+    return <ReduxClubTable clubs={clubs} />;
   };
 
   return (
@@ -27,6 +28,12 @@ const ReduxClubPage = ({ dispatch, clubs, loading, hasError, errorResult }) => {
       <Link to="/" style={{ textDecoration: "none" }}>
         <Button variant="contained" color="default" size="small">
           Back
+        </Button>
+      </Link>
+      &nbsp;&nbsp;
+      <Link to="/reduxaddclub" style={{ textDecoration: "none" }}>
+        <Button variant="contained" color="secondary" size="small">
+          Add
         </Button>
       </Link>
       <br />

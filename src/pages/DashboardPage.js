@@ -32,6 +32,11 @@ const DashboardPage = () => {
       <br />
       <br />
       <hr />
+
+      <h2 style={{ textAlign: "center" }}>Redux Section</h2>
+      <hr />
+
+      <br />
       <Link to="/reduxclub" style={{ textDecoration: "none" }}>
         <Button variant="contained" color="default" size="large">
           Redux Club Page
