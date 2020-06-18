@@ -8,12 +8,11 @@ import { DeleteMessage } from "../../Components/TostifyMessage";
 
 const ReduxClubPage = ({ dispatch, clubs, loading, hasError, errorResult }) => {
   //console.log(props);
-  //const [state, setState] = useState([]);
+
+  //console.log("All Clubs", state);
   useEffect(() => {
     dispatch(fetchClubs());
   }, [dispatch]);
-
-  console.log("All Clubs", clubs);
 
   const handleDelete = (id) => {
     dispatch(deleteNewClub(id));

@@ -19,7 +19,7 @@ const ReduxAddClub = (props) => {
   });
 
   const ClubId = parseInt(props.match.params.id);
-  console.log("id:", ClubId);
+  //console.log("id:", ClubId);
 
   useEffect(() => {
     if (ClubId) {
@@ -40,7 +40,7 @@ const ReduxAddClub = (props) => {
     setState({ ...state, [name]: value });
   };
 
-  console.log(props);
+  //console.log(props);
 
   const handleSubmit = (event) => {
     try {
@@ -75,7 +75,7 @@ const ReduxAddClub = (props) => {
 
   function validationChecking(event) {
     const form = event.currentTarget;
-    console.log("val:", form);
+    //console.log("val:", form);
     if (form.checkValidity() === false) {
       event.preventDefault();
       event.stopPropagation();

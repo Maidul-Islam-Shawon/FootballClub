@@ -15,6 +15,7 @@ const initialState = {
 };
 
 export default function clubReducer(state = initialState, action) {
+  //console.log("reducer: ", action.payload);
   switch (action.type) {
     case GET_All_CLUBS:
       return { ...state, loading: true };
@@ -26,7 +27,11 @@ export default function clubReducer(state = initialState, action) {
       return { ...state, clubs: state.clubs.concat(action.payload) };
 
     case UPDATE_CLUB:
-      return { ...state, clubs: action.payload };
+      return {
+        clubs: state.clubs.map((club) =>
+          club.clubId === action.payload.id ? action.payload.club : club
+        ),
+      };
 
     case DELETE_CLUB:
       return {

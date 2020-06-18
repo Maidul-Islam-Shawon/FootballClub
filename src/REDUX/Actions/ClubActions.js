@@ -32,7 +32,7 @@ export const deleteClub = (id) => ({
   payload: id,
 });
 
-export const updateClub = (id, club) => ({
+export const updateClub = (club, id) => ({
   type: UPDATE_CLUB,
   payload: { id, club },
 });
@@ -55,7 +55,7 @@ export function addNewClub(club) {
   return function (dispatch) {
     try {
       Axios.post("https://localhost:44375/api/clubs", club).then((result) => {
-        dispatch(addClub(result.data));
+        dispatch(addClub(club));
       });
     } catch (err) {
       dispatch(getAllClubsFailure(err));
@@ -80,7 +80,7 @@ export function updateNewClub(id, club) {
     try {
       Axios.put("https://localhost:44375/api/clubs/" + id, club).then(
         (result) => {
-          dispatch(updateClub(result.data));
+          dispatch(updateClub(club, id));
         }
       );
     } catch (err) {

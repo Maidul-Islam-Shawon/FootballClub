@@ -38,8 +38,15 @@ const DashboardPage = () => {
 
       <br />
       <Link to="/reduxclub" style={{ textDecoration: "none" }}>
-        <Button variant="contained" color="default" size="large">
+        <Button variant="contained" color="primary" size="large">
           Redux Club Page
+        </Button>
+      </Link>
+      <br />
+      <br />
+      <Link to="/reduxmember" style={{ textDecoration: "none" }}>
+        <Button variant="contained" color="secondary" size="large">
+          Redux Members Page
         </Button>
       </Link>
     </>
