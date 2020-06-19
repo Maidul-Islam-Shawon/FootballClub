@@ -5,7 +5,7 @@ import { Form, Button, Row, Col, InputGroup } from "react-bootstrap";
 import Axios from "axios";
 import { AddedMessage, UpdateMessage } from "../../Components/TostifyMessage";
 import { connect } from "react-redux";
-import { AddNewMember } from "../Actions/MemberActions";
+import { AddNewMember, UpdateCurrentMember } from "../Actions/MemberActions";
 
 const ReduxAddMember = (props) => {
   const [validated, setValidated] = useState(false);
@@ -86,19 +86,9 @@ const ReduxAddMember = (props) => {
     try {
       if (checkbox && state.clubId !== null) {
         if (MemberId) {
-          Axios.put(
-            "https://localhost:44375/api/clubmembers/" + MemberId,
-            state
-          ).then(
-            (result) => {
-              setState(result.data);
-              UpdateMessage();
-              props.history.push("/members");
-            },
-            (err) => {
-              setError(err.message);
-            }
-          );
+          props.dispatch(UpdateCurrentMember(state, MemberId));
+          UpdateMessage();
+          props.history.push("/reduxmember");
         } else {
           props.dispatch(AddNewMember(state));
           AddedMessage();
@@ -219,5 +209,9 @@ const ReduxAddMember = (props) => {
     </div>
   );
 };
+
+// const mapDispatchToProps = () => ({
+//   AddNewMember,
+// });
 
 export default connect()(ReduxAddMember);

@@ -21,13 +21,19 @@ export default function clubReducer(state = initialState, action) {
       return { ...state, loading: true };
 
     case GET_All_CLUBS_SUCCESS:
-      return { clubs: action.payload, loading: false, hasError: false };
+      return {
+        ...state,
+        clubs: action.payload,
+        loading: false,
+        hasError: false,
+      };
 
     case ADD_CLUB:
       return { ...state, clubs: state.clubs.concat(action.payload) };
 
     case UPDATE_CLUB:
       return {
+        ...state,
         clubs: state.clubs.map((club) =>
           club.clubId === action.payload.id ? action.payload.club : club
         ),

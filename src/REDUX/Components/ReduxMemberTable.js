@@ -67,9 +67,11 @@ const ReduxMemberTable = ({ members, deleteMember }) => {
                   <TableCell align="right">{member.club.clubName}</TableCell>
                   <TableCell align="right">
                     <Tooltip title="Edit">
-                      <IconButton aria-label="edit">
-                        <EditIcon style={{ color: "blue" }} />
-                      </IconButton>
+                      <Link to={`/reduxaddmember/${member.memberId}`}>
+                        <IconButton aria-label="edit" style={{ color: "blue" }}>
+                          <EditIcon />
+                        </IconButton>
+                      </Link>
                     </Tooltip>
 
                     <Tooltip title="Delete">

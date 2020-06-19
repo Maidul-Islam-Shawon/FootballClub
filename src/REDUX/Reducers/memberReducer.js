@@ -4,6 +4,7 @@ import {
   GET_All_MEMBERS_FAILURE,
   ADD_MEMBER,
   DELETE_MEMBER,
+  UPDATE_MEMBER,
 } from "../Actions/ActionTypes";
 
 const initialState = {
@@ -30,7 +31,18 @@ export function memberReducer(state = initialState, action) {
       };
 
     case ADD_MEMBER:
-      return { ...state, members: state.members.concat(action.payload) };
+      return {
+        ...state,
+        members: state.members.concat(action.payload),
+      };
+
+    case UPDATE_MEMBER:
+      return {
+        ...state,
+        members: state.members.map((member) =>
+          member.memberId === action.payload.id ? action.payload.member : member
+        ),
+      };
 
     case DELETE_MEMBER:
       return {

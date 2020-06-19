@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@material-ui/core";
 import { connect } from "react-redux";
-import { fetchAllMembers, DeleteNewMember } from "../Actions/MemberActions";
+import { fetchAllMembers, DeleteCurrentMember } from "../Actions/MemberActions";
 import ReduxMemberTable from "../Components/ReduxMemberTable";
 
 const ReduxMemberPage = ({
@@ -13,13 +13,14 @@ const ReduxMemberPage = ({
   errorMessage,
 }) => {
   useEffect(() => {
+    // debugger;
     dispatch(fetchAllMembers());
   }, [dispatch]);
 
   //console.log(members);
 
   const deleteMember = (id) => {
-    dispatch(DeleteNewMember(id));
+    dispatch(DeleteCurrentMember(id));
   };
 
   const renderMemberTable = () => {

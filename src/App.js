@@ -31,8 +31,10 @@ function App() {
         <Route exact path="/reduxclub" component={ReduxClubPage} />
         <Route exact path="/reduxaddclub" component={ReduxAddClub} />
         <Route exact path={"/reduxaddclub/:id"} component={ReduxAddClub} />
+
         <Route exact path="/reduxmember" component={ReduxMemberPage} />
         <Route exact path="/reduxaddmember" component={ReduxAddMember} />
+        <Route exact path={"/reduxaddmember/:id"} component={ReduxAddMember} />
       </Router>
     </div>
   );
