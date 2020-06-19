@@ -98,7 +98,7 @@ const ReduxAddClub = (props) => {
   return (
     <div>
       <hr />
-      <h2 style={{ textAlign: "center" }}>Club Page</h2>
+      <h2 style={{ textAlign: "center" }}>Redux Club Page</h2>
       <hr />
       <Link to="/reduxclub" style={{ textDecoration: "none" }}>
         <ButtonMUI variant="contained" color="default" size="small">

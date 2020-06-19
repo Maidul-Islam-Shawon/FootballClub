@@ -1,7 +1,9 @@
 import {
   GET_All_MEMBERS,
-  GET_All_CLUBS_SUCCESS,
+  GET_All_MEMBERS_SUCCESS,
   GET_All_MEMBERS_FAILURE,
+  ADD_MEMBER,
+  DELETE_MEMBER,
 } from "../Actions/ActionTypes";
 
 const initialState = {
@@ -16,7 +18,7 @@ export function memberReducer(state = initialState, action) {
     case GET_All_MEMBERS:
       return { ...state, loading: true };
 
-    case GET_All_CLUBS_SUCCESS:
+    case GET_All_MEMBERS_SUCCESS:
       return { members: action.payload, loading: false, hasError: false };
 
     case GET_All_MEMBERS_FAILURE:
@@ -24,7 +26,16 @@ export function memberReducer(state = initialState, action) {
         ...state,
         loading: false,
         hasError: true,
-        errorMessage: action.payload,
+        errorMessage: action.payload.message,
+      };
+
+    case ADD_MEMBER:
+      return { ...state, members: state.members.concat(action.payload) };
+
+    case DELETE_MEMBER:
+      return {
+        ...state,
+        members: state.members.filter((x) => x.memberId !== action.payload),
       };
 
     default:

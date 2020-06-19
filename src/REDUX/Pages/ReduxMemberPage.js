@@ -2,13 +2,31 @@ import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@material-ui/core";
 import { connect } from "react-redux";
-import { fetchAllMembers } from "../Actions/MemberActions";
+import { fetchAllMembers, DeleteNewMember } from "../Actions/MemberActions";
+import ReduxMemberTable from "../Components/ReduxMemberTable";
 
-const ReduxMemberPage = (props) => {
+const ReduxMemberPage = ({
+  dispatch,
+  members,
+  loading,
+  hasError,
+  errorMessage,
+}) => {
   useEffect(() => {
-    props.dispatch(fetchAllMembers());
-  }, []);
-  console.log(props);
+    dispatch(fetchAllMembers());
+  }, [dispatch]);
+
+  //console.log(members);
+
+  const deleteMember = (id) => {
+    dispatch(DeleteNewMember(id));
+  };
+
+  const renderMemberTable = () => {
+    if (loading) return <div>Members Data Loading.....</div>;
+    if (hasError) return <div>{errorMessage}</div>;
+    return <ReduxMemberTable members={members} deleteMember={deleteMember} />;
+  };
   return (
     <div>
       <hr />
@@ -27,6 +45,7 @@ const ReduxMemberPage = (props) => {
       </Link>
       <br />
       <br />
+      {renderMemberTable()}
     </div>
   );
 };
@@ -35,6 +54,7 @@ const mapStateToProps = (state) => ({
   members: state.members.members,
   loading: state.members.loading,
   hasError: state.members.hasError,
+  errorMessage: state.members.errorMessage,
 });
 
 export default connect(mapStateToProps)(ReduxMemberPage);

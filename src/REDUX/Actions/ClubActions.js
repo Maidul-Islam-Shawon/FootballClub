@@ -55,7 +55,7 @@ export function addNewClub(club) {
   return function (dispatch) {
     try {
       Axios.post("https://localhost:44375/api/clubs", club).then((result) => {
-        dispatch(addClub(club));
+        dispatch(addClub(result.data));
       });
     } catch (err) {
       dispatch(getAllClubsFailure(err));
