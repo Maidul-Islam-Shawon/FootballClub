@@ -6,6 +6,7 @@ import {
   ADD_CLUB,
   DELETE_CLUB,
   UPDATE_CLUB,
+  GET_CLUB_BY_ID,
 } from "./ActionTypes";
 
 export const getAllClubs = () => ({
@@ -20,6 +21,11 @@ export const getAllClubsSuccess = (clubs) => ({
 export const getAllClubsFailure = (error) => ({
   type: GET_All_CLUBS_FAILURE,
   payload: error,
+});
+
+export const getClubByID = (club) => ({
+  type: GET_CLUB_BY_ID,
+  payload: club,
 });
 
 export const addClub = (club) => ({
@@ -48,6 +54,19 @@ export function fetchClubs() {
         dispatch(getAllClubsFailure(err));
       }
     );
+  };
+}
+
+export function fetchClubByID(id) {
+  return function (dispatch) {
+    try {
+      Axios.get("https://localhost:44375/api/clubs/" + id).then((result) => {
+        dispatch(getClubByID(result.data));
+        //console.log(result.data);
+      });
+    } catch (err) {
+      dispatch(getAllClubsFailure(err));
+    }
   };
 }
 

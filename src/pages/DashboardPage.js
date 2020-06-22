@@ -32,10 +32,8 @@ const DashboardPage = () => {
       <br />
       <br />
       <hr />
-
       <h2 style={{ textAlign: "center" }}>Redux Section</h2>
       <hr />
-
       <br />
       <Link to="/reduxclub" style={{ textDecoration: "none" }}>
         <Button variant="contained" color="primary" size="large">
@@ -47,6 +45,13 @@ const DashboardPage = () => {
       <Link to="/reduxmember" style={{ textDecoration: "none" }}>
         <Button variant="contained" color="secondary" size="large">
           Redux Members Page
+        </Button>
+      </Link>{" "}
+      <br />
+      <br />
+      <Link to="/reduxclubwithmembers" style={{ textDecoration: "none" }}>
+        <Button variant="contained" color="default" size="large">
+          ReduxClub With Members Page
         </Button>
       </Link>
     </>

@@ -5,10 +5,12 @@ import {
   ADD_CLUB,
   DELETE_CLUB,
   UPDATE_CLUB,
+  GET_CLUB_BY_ID,
 } from "../Actions/ActionTypes";
 
 const initialState = {
   clubs: [],
+  ClubByID: {},
   loading: false,
   hasError: false,
   errorResult: "",
@@ -26,6 +28,11 @@ export default function clubReducer(state = initialState, action) {
         clubs: action.payload,
         loading: false,
         hasError: false,
+      };
+
+    case GET_CLUB_BY_ID:
+      return {
+        ClubByID: action.payload,
       };
 
     case ADD_CLUB:

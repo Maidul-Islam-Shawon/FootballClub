@@ -77,7 +77,7 @@ const ReduxAddMember = (props) => {
       event.stopPropagation();
       setValidated(true);
     } else {
-      setValidated(true);
+      //setValidated(true);
       PostAndUpdate(event);
     }
   };

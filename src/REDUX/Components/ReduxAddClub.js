@@ -5,9 +5,13 @@ import { Form, Button, Col } from "react-bootstrap";
 import Axios from "axios";
 import { AddedMessage, UpdateMessage } from "../../Components/TostifyMessage";
 import { connect } from "react-redux";
-import { addNewClub, updateNewClub } from "../Actions/ClubActions";
+import {
+  addNewClub,
+  updateNewClub,
+  fetchClubByID,
+} from "../Actions/ClubActions";
 
-const ReduxAddClub = (props) => {
+const ReduxAddClub = ({ match, dispatch, history, club }) => {
   const [validated, setValidated] = useState(false);
   const [error, setError] = useState("");
   const [checkbox, setCheckbox] = useState(false);
@@ -18,11 +22,13 @@ const ReduxAddClub = (props) => {
     postcode: "",
   });
 
-  const ClubId = parseInt(props.match.params.id);
+  const ClubId = parseInt(match.params.id);
   //console.log("id:", ClubId);
-
+  //console.log(props);
   useEffect(() => {
     if (ClubId) {
+      //dispatch(fetchClubByID(ClubId));
+
       Axios.get("https://localhost:44375/api/clubs/" + ClubId).then(
         (result) => {
           setState(result.data);
@@ -40,48 +46,37 @@ const ReduxAddClub = (props) => {
     setState({ ...state, [name]: value });
   };
 
-  //console.log(props);
+  //console.log("From Action:", props.ClubByID);
 
   const handleSubmit = (event) => {
-    try {
+    event.preventDefault();
+    const form = event.currentTarget;
+    if (form.checkValidity() === false) {
       event.preventDefault();
-      validationChecking(event);
+      event.stopPropagation();
+      setValidated(true);
+    } else {
+      //setValidated(true);
+      PostAndUpdateClub(event);
+    }
+  };
 
+  function PostAndUpdateClub(event) {
+    try {
       if (checkbox) {
         if (ClubId) {
-          props.dispatch(updateNewClub(ClubId, state));
-          props.history.push("/reduxclub");
+          dispatch(updateNewClub(ClubId, state));
+          history.push("/reduxclub");
           UpdateMessage();
-          // Axios.put("https://localhost:44375/api/clubs/" + ClubId, state).then(
-          //   (result) => {
-          //     setState(result.data);
-          //     UpdateMessage();
-          //     props.history.push("/club");
-          //   },
-          //   (err) => {
-          //     setError(err.message);
-          //   }
-          // );
         } else {
-          props.dispatch(addNewClub(state));
+          dispatch(addNewClub(state));
           AddedMessage();
-          props.history.push("/reduxclub");
+          history.push("/reduxclub");
         }
       }
     } catch (ex) {
       setError(ex.message);
     }
-  };
-
-  function validationChecking(event) {
-    const form = event.currentTarget;
-    //console.log("val:", form);
-    if (form.checkValidity() === false) {
-      event.preventDefault();
-      event.stopPropagation();
-      setValidated(false);
-    }
-    setValidated(true);
   }
 
   const handleCheck = (event) => {
@@ -187,4 +182,8 @@ const ReduxAddClub = (props) => {
   );
 };
 
-export default connect()(ReduxAddClub);
+const mapStateToProps = (state) => ({
+  club: state.clubs.ClubByID,
+});
+
+export default connect(mapStateToProps)(ReduxAddClub);

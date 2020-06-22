@@ -8,7 +8,7 @@ import {
 } from "./ActionTypes";
 import Axios from "axios";
 
-const NewMember = {
+const Member = {
   memberId: "",
   forename: "",
   surname: "",
@@ -64,16 +64,7 @@ export function AddNewMember(member) {
     try {
       Axios.post("https://localhost:44375/api/clubmembers", member).then(
         (result) => {
-          Axios.get(
-            "https://localhost:44375/api/clubmembers/" + result.data.memberId
-          ).then((result) => {
-            NewMember.memberId = result.data.memberId;
-            NewMember.forename = result.data.forename;
-            NewMember.surname = result.data.surname;
-            NewMember.emailAddress = result.data.emailAddress;
-            NewMember.clubId = result.data.clubId;
-            NewMember.club = result.data.club;
-          });
+          const NewMember = GetDataByPostOrPut(result.data.memberId);
           dispatch(addMember(NewMember));
         }
       );
@@ -102,19 +93,24 @@ export function UpdateCurrentMember(member, id) {
     try {
       Axios.put("https://localhost:44375/api/clubmembers/" + id, member).then(
         (result) => {
-          NewMember.memberId = member.memberid;
-          NewMember.forename = member.forename;
-          NewMember.surname = member.surname;
-          NewMember.emailAddress = member.emailAddress;
-          NewMember.clubId = member.clubId;
-          //NewMember.club = result.data.club;
-
-          dispatch(updateMember(NewMember, id));
-          //console.log("update member: ", member.memberId, member.forename);
+          const updatedMember = GetDataByPostOrPut(id);
+          dispatch(updateMember(updatedMember, id));
         }
       );
     } catch (err) {
       dispatch(getAllMembersFailure(err));
     }
   };
+}
+
+function GetDataByPostOrPut(id) {
+  Axios.get("https://localhost:44375/api/clubmembers/" + id).then((result) => {
+    Member.memberId = result.data.memberId;
+    Member.forename = result.data.forename;
+    Member.surname = result.data.surname;
+    Member.emailAddress = result.data.emailAddress;
+    Member.clubId = result.data.clubId;
+    Member.club = result.data.club;
+  });
+  return Member;
 }
